@@ -119,33 +119,27 @@ const Header = ({
   // }, []);
 
   useEffect(() => {
-    const value = localStorage.getItem("fcmToken");
-    if (value) {
+    if (!isSafari()) {
       requestNotificationPermission();
-    }
 
-    onMessage(messaging, (payload) => {
-      console.log("Received foreground message:", payload);
-      const { title, body } = payload.notification;
+      onMessage(messaging, (payload) => {
+        console.log("Received foreground message:", payload);
+        const { title, body, icon } = payload.notification;
 
-      // Store the notification in IndexedDB
-      const notification = {
-        title,
-        body,
-        timestamp: new Date().getTime(),
-      };
+        console.log("Notification Title:", title);
+        console.log("Notification Body:", body);
+        //console.log("Notification Icon:", icon);
 
-      // Show the notification
-      new Notification(title, {
-        body: body || "Foreground Notification Body",
+        // alert(`notification ${title} ${body}`);
+
+        new Notification(title, {
+          body: body || "Foreground Notification Body",
+        });
+        //console.log("forground", notification);
+
+        // Show notification
       });
-
-      addNotification(notification);
-
-      // Refresh the notifications list
-      // fetchNotifications();
-    });
-
+    }
     // Cleanup function to unsubscribe from the message listener
   }, []);
 
