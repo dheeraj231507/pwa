@@ -119,7 +119,12 @@ const Header = ({
   // }, []);
 
   useEffect(async () => {
-    const handleForegroundMessage = async (payload) => {
+    const value = localStorage.getItem("fcmToken");
+    if (value) {
+      await requestNotificationPermission();
+    }
+
+    onMessage(messaging, async (payload) => {
       console.log("Received foreground message:", payload);
       const { title, body } = payload.notification;
 
@@ -139,17 +144,7 @@ const Header = ({
 
       // Refresh the notifications list
       // fetchNotifications();
-    };
-
-    const value = localStorage.getItem("fcmToken");
-    if (value) {
-      await requestNotificationPermission();
-    }
-
-    const unsubscribe = onMessage(messaging, handleForegroundMessage);
-
-    // Cleanup function to unsubscribe from the message listener
-    return () => unsubscribe();
+    });
 
     // Cleanup function to unsubscribe from the message listener
   }, []);
