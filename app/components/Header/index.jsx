@@ -157,9 +157,12 @@ const Header = ({
       // Refresh the notifications list
       // fetchNotifications();
     });
-    new Notification("hello", {
-      body: "hi" || "Foreground Notification Body",
-    });
+    const value = localStorage.getItem("fcmToken");
+    if (value) {
+      new Notification("hello", {
+        body: "hi" || "Foreground Notification Body",
+      });
+    }
 
     // Cleanup function to unsubscribe from the message listener
     return () => {
