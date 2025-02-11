@@ -119,8 +119,15 @@ const Header = ({
   // }, []);
 
   useEffect(() => {
+<<<<<<< HEAD
     if (!isSafari()) {
       requestNotificationPermission();
+=======
+  //  const value = localStorage.getItem("fcmToken");
+  //  if (value) {
+   //   requestNotificationPermission();
+   // }
+>>>>>>> 04f2bda5d025e9193b60abb4d38a805804fcf953
 
       onMessage(messaging, (payload) => {
         console.log("Received foreground message:", payload);
@@ -288,16 +295,16 @@ const Header = ({
                   title="Notification"
                   onClick={async () => {
                     // Check if the token exists in localStorage
-                    const storedToken = localStorage.getItem("fcmToken");
+                   // const storedToken = localStorage.getItem("fcmToken");
 
-                    if (!storedToken) {
+                   // if (!storedToken) {
                       const value = await requestNotificationPermission();
                       if (value) {
                         setShowNotificationDropdown(!showNotificationDropdown);
                       }
-                    } else {
-                      setShowNotificationDropdown(!showNotificationDropdown);
-                    }
+                  //  } else {
+                  //  setShowNotificationDropdown(!showNotificationDropdown);
+                   // }
                   }}
                 >
                   <GoBell
