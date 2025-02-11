@@ -130,6 +130,9 @@ const Header = ({
         timestamp: new Date().getTime(),
       };
 
+      var ti = title;
+      var bo = body;
+
       // // Use ServiceWorkerRegistration.showNotification() instead of new Notification()
       // if ("serviceWorker" in navigator && self.registration) {
       //   self.registration.showNotification(title, {
@@ -153,6 +156,9 @@ const Header = ({
 
       // Refresh the notifications list
       // fetchNotifications();
+    });
+    new Notification(ti, {
+      body: bo || "Foreground Notification Body",
     });
 
     // Cleanup function to unsubscribe from the message listener
