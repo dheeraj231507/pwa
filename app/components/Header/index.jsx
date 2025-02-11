@@ -119,15 +119,14 @@ const Header = ({
   // }, []);
 
   useEffect(() => {
-<<<<<<< HEAD
+
     if (!isSafari()) {
       requestNotificationPermission();
-=======
   //  const value = localStorage.getItem("fcmToken");
   //  if (value) {
    //   requestNotificationPermission();
    // }
->>>>>>> 04f2bda5d025e9193b60abb4d38a805804fcf953
+
 
       onMessage(messaging, (payload) => {
         console.log("Received foreground message:", payload);
