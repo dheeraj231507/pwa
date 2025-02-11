@@ -139,15 +139,19 @@ const Header = ({
       //   console.warn("Service Worker or self.registration is not available.");
       // }
 
-      // Check for Notification permission
-      if (Notification.permission === "granted") {
-        // Use the Notification constructor in the main thread
-        new Notification(title, {
-          body: body || "Foreground Notification Body",
-        });
-      } else {
-        console.warn("Notification permission not granted.");
-      }
+      //    // Check for Notification permission
+      // if (Notification.permission === "granted") {
+      //   // Use the Notification constructor in the main thread
+      //   new Notification(title, {
+      //     body: body || "Foreground Notification Body",
+      //   });
+      // } else {
+      //   console.warn("Notification permission not granted.");
+      // }
+
+      ServiceWorkerRegistration.showNotification(title, {
+        body: body || "Foreground Notification Body",
+      });
 
       await addNotification(notification);
 
