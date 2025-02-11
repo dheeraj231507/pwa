@@ -118,13 +118,13 @@ const Header = ({
   //   });
   // }, []);
 
-  useEffect(async () => {
+  useEffect(() => {
     const value = localStorage.getItem("fcmToken");
     if (value) {
-      await requestNotificationPermission();
+      requestNotificationPermission();
     }
 
-    onMessage(messaging, async (payload) => {
+    onMessage(messaging, (payload) => {
       console.log("Received foreground message:", payload);
       const { title, body } = payload.notification;
 
@@ -140,7 +140,7 @@ const Header = ({
         body: body || "Foreground Notification Body",
       });
 
-      await addNotification(notification);
+      addNotification(notification);
 
       // Refresh the notifications list
       // fetchNotifications();
