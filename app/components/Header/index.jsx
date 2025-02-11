@@ -149,10 +149,6 @@ const Header = ({
       //   console.warn("Notification permission not granted.");
       // }
 
-      ServiceWorkerRegistration.showNotification(title, {
-        body: body || "Foreground Notification Body",
-      });
-
       await addNotification(notification);
 
       // Refresh the notifications list
