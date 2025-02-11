@@ -119,20 +119,9 @@ const Header = ({
   // }, []);
 
   useEffect(() => {
-<<<<<<< HEAD
     onMessage(messaging, async (payload) => {
       console.log("Received foreground message:", payload);
       const { title, body } = payload.notification;
-=======
-
-    if (!isSafari()) {
-      requestNotificationPermission();
-  //  const value = localStorage.getItem("fcmToken");
-  //  if (value) {
-   //   requestNotificationPermission();
-   // }
-
->>>>>>> 5c384da3148ccfa9d8d2f7f532945691865195fb
 
       // Store the notification in IndexedDB
       const notification = {
