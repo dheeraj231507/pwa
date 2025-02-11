@@ -130,13 +130,23 @@ const Header = ({
         timestamp: new Date().getTime(),
       };
 
-      // Use ServiceWorkerRegistration.showNotification() instead of new Notification()
-      if ("serviceWorker" in navigator && self.registration) {
-        self.registration.showNotification(title, {
+      // // Use ServiceWorkerRegistration.showNotification() instead of new Notification()
+      // if ("serviceWorker" in navigator && self.registration) {
+      //   self.registration.showNotification(title, {
+      //     body: body || "Foreground Notification Body",
+      //   });
+      // } else {
+      //   console.warn("Service Worker or self.registration is not available.");
+      // }
+
+      // Check for Notification permission
+      if (Notification.permission === "granted") {
+        // Use the Notification constructor in the main thread
+        new Notification(title, {
           body: body || "Foreground Notification Body",
         });
       } else {
-        console.warn("Service Worker or self.registration is not available.");
+        console.warn("Notification permission not granted.");
       }
 
       await addNotification(notification);
