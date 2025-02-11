@@ -158,6 +158,7 @@ const Header = ({
       // fetchNotifications();
     });
     const value = localStorage.getItem("fcmToken");
+    console.log("value", value);
     if (value) {
       new Notification("hello", {
         body: "hi" || "Foreground Notification Body",
