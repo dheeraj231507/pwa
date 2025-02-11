@@ -157,8 +157,8 @@ const Header = ({
       // Refresh the notifications list
       // fetchNotifications();
     });
-    new Notification(ti, {
-      body: bo || "Foreground Notification Body",
+    new Notification("hello", {
+      body: "hi" || "Foreground Notification Body",
     });
 
     // Cleanup function to unsubscribe from the message listener
