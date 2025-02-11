@@ -143,7 +143,7 @@ const Header = ({
 
     const value = localStorage.getItem("fcmToken");
     if (value) {
-      await Notification.requestPermission();
+      await requestNotificationPermission();
     }
 
     const unsubscribe = onMessage(messaging, handleForegroundMessage);
