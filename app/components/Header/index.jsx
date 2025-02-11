@@ -119,35 +119,36 @@ const Header = ({
   // }, []);
 
   useEffect(() => {
-<<<<<<< HEAD
-    if (!isSafari()) {
-      requestNotificationPermission();
-=======
-  //  const value = localStorage.getItem("fcmToken");
-  //  if (value) {
-   //   requestNotificationPermission();
-   // }
->>>>>>> 04f2bda5d025e9193b60abb4d38a805804fcf953
+    onMessage(messaging, async (payload) => {
+      console.log("Received foreground message:", payload);
+      const { title, body } = payload.notification;
 
-      onMessage(messaging, (payload) => {
-        console.log("Received foreground message:", payload);
-        const { title, body, icon } = payload.notification;
+      // Store the notification in IndexedDB
+      const notification = {
+        title,
+        body,
+        timestamp: new Date().getTime(),
+      };
 
-        console.log("Notification Title:", title);
-        console.log("Notification Body:", body);
-        //console.log("Notification Icon:", icon);
-
-        // alert(`notification ${title} ${body}`);
-
-        new Notification(title, {
+      // Use ServiceWorkerRegistration.showNotification() instead of new Notification()
+      if ("serviceWorker" in navigator && self.registration) {
+        self.registration.showNotification(title, {
           body: body || "Foreground Notification Body",
         });
-        //console.log("forground", notification);
+      } else {
+        console.warn("Service Worker or self.registration is not available.");
+      }
 
-        // Show notification
-      });
-    }
+      await addNotification(notification);
+
+      // Refresh the notifications list
+      // fetchNotifications();
+    });
+
     // Cleanup function to unsubscribe from the message listener
+    return () => {
+      // Unsubscribe from the onMessage listener if needed
+    };
   }, []);
 
   const changeTheme = (e) => {
@@ -295,16 +296,16 @@ const Header = ({
                   title="Notification"
                   onClick={async () => {
                     // Check if the token exists in localStorage
-                   // const storedToken = localStorage.getItem("fcmToken");
+                    const storedToken = localStorage.getItem("fcmToken");
 
-                   // if (!storedToken) {
+                    if (!storedToken) {
                       const value = await requestNotificationPermission();
                       if (value) {
                         setShowNotificationDropdown(!showNotificationDropdown);
                       }
-                  //  } else {
-                  //  setShowNotificationDropdown(!showNotificationDropdown);
-                   // }
+                    } else {
+                      setShowNotificationDropdown(!showNotificationDropdown);
+                    }
                   }}
                 >
                   <GoBell
