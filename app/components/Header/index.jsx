@@ -119,10 +119,10 @@ const Header = ({
   // }, []);
 
   useEffect(() => {
-    const value = localStorage.getItem("fcmToken");
-    if (value) {
-      requestNotificationPermission();
-    }
+  //  const value = localStorage.getItem("fcmToken");
+  //  if (value) {
+   //   requestNotificationPermission();
+   // }
 
     onMessage(messaging, (payload) => {
       console.log("Received foreground message:", payload);
