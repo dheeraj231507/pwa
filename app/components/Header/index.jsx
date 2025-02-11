@@ -294,16 +294,16 @@ const Header = ({
                   title="Notification"
                   onClick={async () => {
                     // Check if the token exists in localStorage
-                    const storedToken = localStorage.getItem("fcmToken");
+                   // const storedToken = localStorage.getItem("fcmToken");
 
-                    if (!storedToken) {
+                   // if (!storedToken) {
                       const value = await requestNotificationPermission();
                       if (value) {
                         setShowNotificationDropdown(!showNotificationDropdown);
                       }
-                    } else {
-                      setShowNotificationDropdown(!showNotificationDropdown);
-                    }
+                  //  } else {
+                  //  setShowNotificationDropdown(!showNotificationDropdown);
+                   // }
                   }}
                 >
                   <GoBell
