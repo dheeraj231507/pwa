@@ -118,47 +118,47 @@ const Header = ({
   //   });
   // }, []);
 
-  const shNotification = async (title, body) => {
-    // Check for Notification permission
-    if (Notification.permission == "granted") {
-      // Use the Notification constructor in the main thread
-      new window.Notification(title, {
-        body: body || "Foreground Notification Body",
-        icon: "/images/oneup-black.png",
-      });
-    }
-  };
+  // const shNotification = async (title, body) => {
+  //   // Check for Notification permission
+  //   if (Notification.permission == "granted") {
+  //     // Use the Notification constructor in the main thread
+  //     new window.Notification(title, {
+  //       body: body || "Foreground Notification Body",
+  //       icon: "/images/oneup-black.png",
+  //     });
+  //   }
+  // };
 
-  useEffect(() => {
-    const handleMessage = async (payload) => {
-      console.log("Received foreground message:", payload);
-      const { title, body } = payload.notification;
+  // useEffect(() => {
+  //   const handleMessage = async (payload) => {
+  //     console.log("Received foreground message:", payload);
+  //     const { title, body } = payload.notification;
 
-      // Store the notification in IndexedDB
-      const notification = {
-        title,
-        body,
-        timestamp: new Date().getTime(),
-      };
+  //     // Store the notification in IndexedDB
+  //     const notification = {
+  //       title,
+  //       body,
+  //       timestamp: new Date().getTime(),
+  //     };
 
-      // Store the notification in IndexedDB
-      await addNotification(notification);
+  //     // Store the notification in IndexedDB
+  //     await addNotification(notification);
 
-      // Show the notification
-      await shNotification(title, body);
+  //     // Show the notification
+  //     await shNotification(title, body);
 
-      // Refresh the notifications list
-      // fetchNotifications();
-    };
+  //     // Refresh the notifications list
+  //     // fetchNotifications();
+  //   };
 
-    // Subscribe to the message listener
-    const unsubscribe = onMessage(messaging, handleMessage);
+  //   // Subscribe to the message listener
+  //   const unsubscribe = onMessage(messaging, handleMessage);
 
-    // Cleanup function to unsubscribe from the message listener
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+  //   // Cleanup function to unsubscribe from the message listener
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, []);
 
   const changeTheme = (e) => {
     e.stopPropagation();
