@@ -118,7 +118,7 @@ const Header = ({
   //   });
   // }, []);
 
-  const showNotification = async (title, body) => {
+  const shNotification = async (title, body) => {
     // Check for Notification permission
     await requestNotificationPermission();
 
@@ -141,7 +141,7 @@ const Header = ({
       };
 
       // Show the notification
-      await showNotification(title, body);
+      await shNotification(title, body);
 
       // Store the notification in IndexedDB
       await addNotification(notification);
