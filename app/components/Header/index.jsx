@@ -130,9 +130,6 @@ const Header = ({
         timestamp: new Date().getTime(),
       };
 
-      var ti = title;
-      var bo = body;
-
       // // Use ServiceWorkerRegistration.showNotification() instead of new Notification()
       // if ("serviceWorker" in navigator && self.registration) {
       //   self.registration.showNotification(title, {
@@ -142,28 +139,18 @@ const Header = ({
       //   console.warn("Service Worker or self.registration is not available.");
       // }
 
-      //    // Check for Notification permission
-      // if (Notification.permission === "granted") {
-      //   // Use the Notification constructor in the main thread
-      //   new Notification(title, {
-      //     body: body || "Foreground Notification Body",
-      //   });
-      // } else {
-      //   console.warn("Notification permission not granted.");
-      // }
+      // Check for Notification permission
+      await requestNotificationPermission();
+      // Use the Notification constructor in the main thread
+      new Notification(title, {
+        body: body || "Foreground Notification Body",
+      });
 
       await addNotification(notification);
 
       // Refresh the notifications list
       // fetchNotifications();
     });
-    const value = localStorage.getItem("fcmToken");
-    console.log("value", value);
-    if (value) {
-      new Notification("hello", {
-        body: "hi" || "Foreground Notification Body",
-      });
-    }
 
     // Cleanup function to unsubscribe from the message listener
     return () => {
