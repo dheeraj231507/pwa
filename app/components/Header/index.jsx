@@ -310,12 +310,12 @@ const Header = ({
                   variant="link"
                   className="p-0 me-sm-3 me-2"
                   title="Notification"
-                  onClick={async () => {
+                  onClick={() => {
                     // Check if the token exists in localStorage
                     const storedToken = localStorage.getItem("fcmToken");
 
                     if (!storedToken) {
-                      const value = await requestNotificationPermission();
+                      const value = requestNotificationPermission();
                       if (value) {
                         setShowNotificationDropdown(!showNotificationDropdown);
                       }
