@@ -80,32 +80,13 @@ if (isSupported) {
     };
 
     addNotification(notification);
-  });
-
-  messaging.onMessage((payload) => {
-    const { title, body } = payload.notification;
-    no = {
-      title: title,
-      body: body,
-    };
-
-    const notification = {
-      title: title,
-      body: body,
-      timestamp: new Date().getTime(),
-    };
-    addNotification(notification);
-
-    // self.registration.showNotification(title, {
-    //   body: body,
-    // });
 
     self.skipWaiting().then(() => {
       self.clients.matchAll().then((clinets) => {
         clinets.forEach((client) => {
           client.postMessage({
             type: "NEW_NOTIFICATION",
-            no,
+            notification,
           });
         });
       });
