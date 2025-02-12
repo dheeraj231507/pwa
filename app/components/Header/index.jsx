@@ -144,18 +144,28 @@ const Header = ({
       // Store the notification in IndexedDB
       await addNotification(notification);
 
-      if (!window.Notification || !Notification.requestPermission) return false;
-      if (Notification.permission == "granted") {
-        try {
-          new Notification(title, {
-            body: body || "Foreground Notification Body",
-          });
-        } catch (e) {
-          if (e.name == "TypeError") return false;
-        }
-      }
+      // if (!window.Notification || !Notification.requestPermission) return false;
+      // if (Notification.permission == "granted") {
+      //   try {
+      //     new Notification(title, {
+      //       body: body || "Foreground Notification Body",
+      //     });
+      //   } catch (e) {
+      //     if (e.name == "TypeError") return false;
+      //   }
+      // }
       // Refresh the notifications list
       // fetchNotifications();
+
+      navigator.serviceWorker.getRegistration().then((registration) => {
+        if (registration) {
+          registration.showNotification("Hello", {
+            body: "Hi, this is a PWA notification!",
+            vibrate: [200, 100, 200], // Vibration pattern
+            tag: "pwa-notification", // Unique tag to replace old notification
+          });
+        }
+      });
     };
 
     // Subscribe to the message listener
