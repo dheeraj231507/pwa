@@ -9,12 +9,13 @@ export const requestNotificationPermission = async () => {
     if (!storedToken) {
       const permission = await Notification.requestPermission();
 
+      // Check if the token already exists in localStorage
+
       if (permission === "granted") {
         console.log("Notification permission granted.");
 
         const token = await getToken(messaging, { vapidKey: VAPID_KEY });
         console.log("+++ token", token);
-
         // Save the token to localStorage
         localStorage.setItem("fcmToken", token);
 
@@ -24,22 +25,15 @@ export const requestNotificationPermission = async () => {
           ID.unique(),
           { token: token }
         );
-        console.log("Token saved in database.");
+        console.log("token saved in database");
         return true;
       } else if (permission === "denied") {
         console.warn("Notification permission denied.");
         return false;
       }
     } else {
-      // Check if the device is Android
-      const isAndroid = /Android/i.test(navigator.userAgent);
-      if (isAndroid) {
-        console.error("Notifications are not supported in this browser.");
-      }
+      console.error("Notifications are not supported in this browser.");
       return false;
     }
-  } else {
-    console.error("Notifications are not supported in this browser.");
-    return false;
   }
 };

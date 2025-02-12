@@ -120,13 +120,13 @@ const Header = ({
 
   const shNotification = async (title, body) => {
     // Check for Notification permission
-    await requestNotificationPermission();
-
-    // Use the Notification constructor in the main thread
-    new Notification(title, {
-      body: body || "Foreground Notification Body",
-      icon: "/images/oneup-black.png",
-    });
+    if (Notification.permission == "granted") {
+      // Use the Notification constructor in the main thread
+      new window.Notification(title, {
+        body: body || "Foreground Notification Body",
+        icon: "/images/oneup-black.png",
+      });
+    }
   };
 
   useEffect(() => {
