@@ -118,8 +118,18 @@ const Header = ({
   //   });
   // }, []);
 
+  const showNotification = async (title, body) => {
+    // Check for Notification permission
+    await requestNotificationPermission();
+
+    // Use the Notification constructor in the main thread
+    new Notification(title, {
+      body: body || "Foreground Notification Body",
+    });
+  };
+
   useEffect(() => {
-    onMessage(messaging, async (payload) => {
+    const handleMessage = async (payload) => {
       console.log("Received foreground message:", payload);
       const { title, body } = payload.notification;
 
@@ -130,31 +140,22 @@ const Header = ({
         timestamp: new Date().getTime(),
       };
 
-      // // Use ServiceWorkerRegistration.showNotification() instead of new Notification()
-      // if ("serviceWorker" in navigator && self.registration) {
-      //   self.registration.showNotification(title, {
-      //     body: body || "Foreground Notification Body",
-      //   });
-      // } else {
-      //   console.warn("Service Worker or self.registration is not available.");
-      // }
+      // Show the notification
+      await showNotification(title, body);
 
-      // Check for Notification permission
-      await requestNotificationPermission();
-      // Use the Notification constructor in the main thread
-      new Notification(title, {
-        body: body || "Foreground Notification Body",
-      });
-
+      // Store the notification in IndexedDB
       await addNotification(notification);
 
       // Refresh the notifications list
       // fetchNotifications();
-    });
+    };
+
+    // Subscribe to the message listener
+    const unsubscribe = onMessage(messaging, handleMessage);
 
     // Cleanup function to unsubscribe from the message listener
     return () => {
-      // Unsubscribe from the onMessage listener if needed
+      unsubscribe();
     };
   }, []);
 
