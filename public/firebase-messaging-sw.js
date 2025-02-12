@@ -1,5 +1,3 @@
-import { messaging } from "./helper/firebase";
-
 importScripts(
   "https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"
 );
