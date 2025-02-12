@@ -123,9 +123,7 @@ const Header = ({
     await requestNotificationPermission();
 
     // Use the Notification constructor in the main thread
-    new Notification(title, {
-      body: body || "Foreground Notification Body",
-    });
+    new Notification(title, body);
   };
 
   useEffect(() => {
