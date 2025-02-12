@@ -141,11 +141,11 @@ const Header = ({
         timestamp: new Date().getTime(),
       };
 
-      // Show the notification
-      await shNotification(title, body);
-
       // Store the notification in IndexedDB
       await addNotification(notification);
+
+      // Show the notification
+      await shNotification(title, body);
 
       // Refresh the notifications list
       // fetchNotifications();
