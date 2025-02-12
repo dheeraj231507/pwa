@@ -123,7 +123,10 @@ const Header = ({
     await requestNotificationPermission();
 
     // Use the Notification constructor in the main thread
-    new Notification(title, body);
+    new Notification(title, {
+      body: body || "Foreground Notification Body",
+      icon: "/images/oneup-black.png",
+    });
   };
 
   useEffect(() => {
